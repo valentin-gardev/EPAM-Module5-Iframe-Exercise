@@ -13,3 +13,15 @@ test('verify test handling in iframe', async({ page }) => {
 
     await expect(nameInput).toHaveValue('George')
 })
+
+test('verify switching context back ot main document', async({ page }) => {
+
+    await page.goto('https://letcode.in/frame')
+
+    const frame = page.frameLocator('#firstFr')
+    await frame.locator('[name="fname"]').fill('Ivan')
+
+    const mainPageHeader = page.locator('h1.text-xl')
+    await expect(mainPageHeader).toHaveText('Frame')
+
+})
